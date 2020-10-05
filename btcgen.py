@@ -11,11 +11,11 @@ def generator():
     seed = mnemo.to_seed(words, passphrase="")
     entropy = mnemo.to_entropy(words)
     return(words)
+
 def bal_check():
     print(adress)
-    bal = blockcypher.get_total_balance(adress)
-    bal1 = str(bal)
-    print("balance:"+bal1+"\n")
+    bal = str(blockcypher.get_total_balance(adress))
+    print("balance:"+bal+"\n")
 
 
 def bip39(mnemonic_words):
@@ -32,21 +32,8 @@ def bip39(mnemonic_words):
     ).ChildKey(0).ChildKey(0)
     global adress
     adress = bip32_child_key_obj.Address()
-
-    # return {
-    #     'mnemonic_words': mnemonic_words,
-    #     'bip32_root_key': bip32_root_key_obj.ExtendedKey(),
-    #     'bip32_extended_private_key': bip32_child_key_obj.ExtendedKey(),
-    #     'bip32_derivation_path': "m/44'/0'/0'/0",
-    #     'bip32_derivation_addr': bip32_child_key_obj.Address(),
-    #     'coin': 'BTC'
-    # }
-
     return {
         'mnemonic_words': mnemonic_words,
-        # 'bip32_root_key': bip32_root_key_obj.ExtendedKey(),
-        # 'bip32_extended_private_key': bip32_child_key_obj.ExtendedKey(),
-        # 'path': "m/44'/0'/0'/0",
         'addr': bip32_child_key_obj.Address(),
         'publickey': binascii.hexlify(bip32_child_key_obj.PublicKey()).decode(),
         'privatekey': bip32_child_key_obj.WalletImportFormat(),
